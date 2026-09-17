@@ -63,6 +63,7 @@ public class ConsoleUI {
             IO.println(loan);
         }
     }
+
     private void showBooks() {
         ArrayList<Book> books = library.getBooks();
         for (Book book : books) {

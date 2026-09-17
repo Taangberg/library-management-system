@@ -63,7 +63,7 @@ public class Library {
 
     public Member getMember(int id) {
         for (Member member : members) {
-            if (member.getMemberId() == id) {
+            if (member.memberId() == id) {
                 return member;
             }
         }
@@ -73,7 +73,7 @@ public class Library {
     public ArrayList<Loan> loansByMember(int memberId) {
         ArrayList<Loan> memberLoans = new ArrayList<>();
         for (Loan loan : loans) {
-            if (loan.getMember().getMemberId() == memberId) {
+            if (loan.getMember().memberId() == memberId) {
                 memberLoans.add(loan);
             }
         }

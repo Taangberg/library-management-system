@@ -31,10 +31,6 @@ public class Book {
         return author + "; " + title + "; ISBN " + ISBN  + " Pages: " + pages + " ID: " + id;
     }
 
-    public boolean isAvailable() {
-        return borrowedBy == null;
-    }
-
     @Override
     public boolean equals(Object otherObj) {
         if (otherObj == null || getClass() != otherObj.getClass()) return false;
