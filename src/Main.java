@@ -20,7 +20,7 @@ void main() {
             3,
             12345);
 
-    Member thorkild = new Member("Thorkild Hansen", 111);
+    Member thorkild = new Member("Thorkild Hansen",111);
     Member lise = new Member("Lise Andersen", 112);
     Member peter = new Member("Peter Larsen", 113);
 

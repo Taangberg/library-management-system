@@ -1,4 +1,3 @@
-import javax.management.AttributeList;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -103,5 +102,16 @@ public class Library {
             }
         }
         return false;
+    }
+
+    public ArrayList<Book> getAvailableBooks() {
+        ArrayList<Book> availableBooks = new ArrayList<>();
+        for (Book book : books) {
+            if (isAvailable(book.id())) {
+                availableBooks.add(book);
+            }
+        }
+        IO.println(availableBooks);
+        return availableBooks;
     }
 }

@@ -40,12 +40,12 @@ public class ConsoleUI {
 
     private void borrowBook() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
-        showBooks();
+        library.getAvailableBooks();
         int bookId = Integer.parseInt(IO.readln("Indtast bog id: "));
 
         boolean succesLoan = library.loanBook(memberId, bookId);
 
-        IO.println(succesLoan ? "Bogen er lånt!" : "Bogen kunne ikke lånes");
+        IO.println(succesLoan ? "Bogen er lånt!" : "Bogen er allerede udlånt");
     }
 
     private void returnBook() {
