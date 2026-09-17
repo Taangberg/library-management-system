@@ -40,12 +40,18 @@ public class ConsoleUI {
 
     private void borrowBook() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
-        library.getAvailableBooks();
+
+        ArrayList<Book> availableBooks = library.getAvailableBooks();
+        for (Book onShelf : availableBooks) {
+            IO.println("\n" + onShelf);
+        }
+        IO.println();
         int bookId = Integer.parseInt(IO.readln("Indtast bog id: "));
 
         boolean succesLoan = library.loanBook(memberId, bookId);
 
         IO.println(succesLoan ? "Bogen er lånt!" : "Bogen er allerede udlånt");
+
     }
 
     private void returnBook() {
@@ -67,7 +73,7 @@ public class ConsoleUI {
     private void showBooks() {
         ArrayList<Book> books = library.getBooks();
         for (Book book : books) {
-            IO.println(book);
+            IO.println("\n" + book);
         }
     }
 }

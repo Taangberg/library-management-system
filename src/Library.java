@@ -111,7 +111,6 @@ public class Library {
                 availableBooks.add(book);
             }
         }
-        IO.println(availableBooks);
         return availableBooks;
     }
 }

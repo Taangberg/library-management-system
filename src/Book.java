@@ -2,7 +2,7 @@ public record Book(String author, String title, String ISBN, int id, int pageCou
 
     @Override
     public String toString() {
-        return author + "; " + title + "; ISBN " + ISBN + " Pages: " + pageCount + " ID: " + id;
+        return author + "; " + title + "; Pages: " + pageCount + " | ISBN " + ISBN + " [ID: " + id +"]";
     }
 }
 
