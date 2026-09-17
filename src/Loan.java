@@ -1,36 +1,21 @@
 import java.time.LocalDate;
 
-public class Loan {
+public record Loan(Book book, Member member, LocalDate borrowedDate) {
 
-    private final Book book;
-    private final Member member;
-    final LocalDate borrowedDate;
-
-    public Loan(Book book, Member member, LocalDate borrowedDate) {
-        this.book = book;
-        this.member = member;
-        this.borrowedDate = borrowedDate;
-    }
-
+    @Override
     public String toString() {
         return "Bog: " + book + "\nLånt af: " + member + " Afleveringsfrist: " + getDueDate() + "\n";
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public Member getMember() {
-        return member;
     }
 
     public LocalDate getDueDate() {
         return borrowedDate.plusDays(14);
         }
 
+/*
     public boolean isOverdue() {
        return LocalDate.now().isAfter(getDueDate());
     }
+*/
 }
 
 
