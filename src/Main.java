@@ -12,11 +12,13 @@ void main() {
     Book omrids = new Book("Rachel Cusk",
             "Omrids",
             "9781492072508",
-            2);
+            2,
+            1234);
     Book sapiens = new Book("Yuval Noah Harari",
             "Sapiens",
             "9780062316097",
-            3);
+            3,
+            12345);
 
     Member thorkild = new Member("Thorkild Hansen", 111);
     Member lise = new Member("Lise Andersen", 112);

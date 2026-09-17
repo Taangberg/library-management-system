@@ -45,7 +45,7 @@ public class Library {
 
     public Book getBook(int id) {
         for (Book book : books) {
-            if (book.getId() == id) {
+            if (book.id() == id) {
                 return book;
             }
         }
@@ -54,7 +54,7 @@ public class Library {
 
     public boolean isAvailable(int id) {
         for (Loan loan : loans) {
-            if (loan.getBook().getId() == id) {
+            if (loan.getBook().id() == id) {
                 return false;
             }
         }
@@ -97,7 +97,7 @@ public class Library {
 
     public boolean returnBook(int bookID) {
         for (int i = 0; i < loans.size(); i++) {
-            if (loans.get(i).getBook().getId() == bookID) {
+            if (loans.get(i).getBook().id() == bookID) {
                 loans.remove(i);
                 return true;
             }
