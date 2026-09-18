@@ -65,6 +65,9 @@ public class ConsoleUI {
     private void showLoans() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
         ArrayList<Loan> memberLoans = library.loansByMember(memberId);
+        if (memberLoans.isEmpty()){
+            IO.println("Medlemmet har ikke nogen aktive lån");
+        }
         for (Loan loan : memberLoans) {
             IO.println(loan);
         }
