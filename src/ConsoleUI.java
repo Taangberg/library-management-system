@@ -40,6 +40,11 @@ public class ConsoleUI {
 
     private void borrowBook() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
+        Member member = library.getMember(memberId);
+        if (member == null) {
+            IO.println("Medlemsnummeret eksisterer ikke");
+            return;
+        } IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
 
         ArrayList<Book> availableBooks = library.getAvailableBooks();
         for (Book onShelf : availableBooks) {
@@ -64,8 +69,15 @@ public class ConsoleUI {
 
     private void showLoans() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
+
+        Member member = library.getMember(memberId);
+        if (member == null) {
+            IO.println("Medlemsnummeret eksisterer ikke");
+            return;
+        } IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
+
         ArrayList<Loan> memberLoans = library.loansByMember(memberId);
-        if (memberLoans.isEmpty()){
+        if (memberLoans.isEmpty()) {
             IO.println("Medlemmet har ikke nogen aktive lån");
         }
         for (Loan loan : memberLoans) {
