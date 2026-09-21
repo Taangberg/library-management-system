@@ -1,4 +1,4 @@
-void main() {
+void main(String[] args) {
 
     Library library = new Library();
     ConsoleUI consoleUI = new ConsoleUI(library);
@@ -39,14 +39,14 @@ void main() {
             "9780141394657",
             7,
             560);
-    Book theOdyssey =new Book("Homer",
+    Book theOdyssey = new Book("Homer",
             "The Odyssey",
             "9780141192444",
             8,
             416);
 
 
-    Member thorkild = new Member("Thorkild Hansen",111);
+    Member thorkild = new Member("Thorkild Hansen", 111);
     Member lise = new Member("Lise Andersen", 112);
     Member peter = new Member("Peter Larsen", 113);
     Member hans = new Member("Hans Christian", 114);
@@ -55,23 +55,11 @@ void main() {
     Member mathilde = new Member("Mathilde Asmussen", 117);
     Member ida = new Member("Ida Poppel", 118);
 
-    library.addBook(thinkJava);
-    library.addBook(omrids);
-    library.addBook(sapiens);
-    library.addBook(atomicHabits);
-    library.addBook(theIntelligentInvestor);
-    library.addBook(open);
-    library.addBook(theIliad);
-    library.addBook(theOdyssey);
 
-    library.addMember(thorkild);
-    library.addMember(lise);
-    library.addMember(peter);
-    library.addMember(hans);
-    library.addMember(sophie);
-    library.addMember(valdemar);
-    library.addMember(mathilde);
-    library.addMember(ida);
+    library.addBooks(thinkJava, omrids, sapiens, atomicHabits, theIntelligentInvestor, open, theIliad, theOdyssey);
+
+    library.addMembers(thorkild, lise, peter, hans, sophie, valdemar, mathilde, ida);
+
 
     consoleUI.run();
 

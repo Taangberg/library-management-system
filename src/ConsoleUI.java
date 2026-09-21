@@ -44,7 +44,8 @@ public class ConsoleUI {
         if (member == null) {
             IO.println("Medlemsnummeret eksisterer ikke");
             return;
-        } IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
+        }
+        IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
 
         ArrayList<Book> availableBooks = library.getAvailableBooks();
         for (Book onShelf : availableBooks) {
@@ -74,7 +75,8 @@ public class ConsoleUI {
         if (member == null) {
             IO.println("Medlemsnummeret eksisterer ikke");
             return;
-        } IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
+        }
+        IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
 
         ArrayList<Loan> memberLoans = library.loansByMember(memberId);
         if (memberLoans.isEmpty()) {

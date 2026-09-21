@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Library {
     private ArrayList<Book> books = new ArrayList<>();
@@ -10,8 +11,17 @@ public class Library {
         books.add(book);
     }
 
+    public void addBooks(Book... newBooks) {
+        books.addAll(Arrays.asList(newBooks));
+
+    }
+
     public void addMember(Member member) {
         members.add(member);
+    }
+
+    public void addMembers(Member... newMembers) {
+        members.addAll(Arrays.asList(newMembers));
     }
 
     public void addLoan(Loan loan) {
