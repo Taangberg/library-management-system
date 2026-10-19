@@ -7,38 +7,21 @@ public class Library {
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Loan> loans = new ArrayList<>();
 
-    public void addBook(Book book) {
-        books.add(book);
-    }
+    public void addBook(Book book) { books.add(book); }
 
-    public void addBooks(Book... newBooks) {
-        books.addAll(Arrays.asList(newBooks));
+    public void addBooks(Book... newBooks) { books.addAll(Arrays.asList(newBooks)); }
 
-    }
+    public void addMember(Member member) { members.add(member); }
 
-    public void addMember(Member member) {
-        members.add(member);
-    }
+    public void addMembers(Member... newMembers) { members.addAll(Arrays.asList(newMembers)); }
 
-    public void addMembers(Member... newMembers) {
-        members.addAll(Arrays.asList(newMembers));
-    }
+    public void addLoan(Loan loan) { loans.add(loan); }
 
-    public void addLoan(Loan loan) {
-        loans.add(loan);
-    }
+    public ArrayList<Book> getBooks() { return books; }
 
-    public ArrayList<Book> getBooks() {
-        return books;
-    }
+    public ArrayList<Member> getMembers() { return members; }
 
-    public ArrayList<Member> getMembers() {
-        return members;
-    }
-
-    public ArrayList<Loan> getLoan() {
-        return loans;
-    }
+    public ArrayList<Loan> getLoan() { return loans; }
 
     public void printBooks() {
         for (Book book : books) {
@@ -54,7 +37,7 @@ public class Library {
 
     public Book getBook(int id) {
         for (Book book : books) {
-            if (book.id() == id) {
+            if (book.getId() == id) {
                 return book;
             }
         }
@@ -63,7 +46,7 @@ public class Library {
 
     public boolean isAvailable(int id) {
         for (Loan loan : loans) {
-            if (loan.book().id() == id) {
+            if (loan.book().getId() == id) {
                 return false;
             }
         }
@@ -106,7 +89,7 @@ public class Library {
 
     public boolean returnBook(int bookID) {
         for (int i = 0; i < loans.size(); i++) {
-            if (loans.get(i).book().id() == bookID) {
+            if (loans.get(i).book().getId() == bookID) {
                 loans.remove(i);
                 return true;
             }
@@ -117,7 +100,7 @@ public class Library {
     public ArrayList<Book> getAvailableBooks() {
         ArrayList<Book> availableBooks = new ArrayList<>();
         for (Book book : books) {
-            if (isAvailable(book.id())) {
+            if (isAvailable(book.getId())) {
                 availableBooks.add(book);
             }
         }
