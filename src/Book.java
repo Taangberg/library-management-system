@@ -1,8 +1,19 @@
-public record Book(String author, String title, String ISBN, int id, int pageCount) {
+public class Book extends Resource {
+    String ISBN;
+    int pageCount;
 
-    @Override
+    public Book(String creator, String title, int pageCount, String ISBN, int id) {
+        super(creator, title, id);
+        this.ISBN = ISBN;
+        this.pageCount = pageCount;
+    }
+
+    public String getISBN() { return ISBN; }
+
+    public int getPageCount() { return pageCount; }
+
     public String toString() {
-        return author + "; " + title + "; Pages: " + pageCount + " | ISBN " + ISBN + " [ID: " + id + "]";
+        return title + ", by " + creator + "; Pages: " + pageCount + " | ISBN " + ISBN + " [ID: " + id + "]";
     }
 }
 

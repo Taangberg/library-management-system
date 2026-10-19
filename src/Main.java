@@ -3,7 +3,7 @@ void main(String[] args) {
     Library library = new Library();
     ConsoleUI consoleUI = new ConsoleUI(library);
 
-
+/*
     Book thinkJava = new Book("Allan B. Downey",
             "Think Java",
             "9781492072508",
@@ -43,7 +43,7 @@ void main(String[] args) {
             "The Odyssey",
             "9780141192444",
             8,
-            416);
+            416); */
 
 
     Member thorkild = new Member("Thorkild Hansen", 111);
@@ -55,20 +55,11 @@ void main(String[] args) {
     Member mathilde = new Member("Mathilde Asmussen", 117);
     Member ida = new Member("Ida Poppel", 118);
 
-
+/*
     library.addBooks(thinkJava, omrids, sapiens, atomicHabits, theIntelligentInvestor, open, theIliad, theOdyssey);
-
+*/
     library.addMembers(thorkild, lise, peter, hans, sophie, valdemar, mathilde, ida);
 
 
     consoleUI.run();
-
-/*
-    ArrayList<Book>books = new ArrayList<>();
-    books.add(new Book("Hp", "Dp", "12352315", 1));
-
-    Book dP = new Book("Hp", "Dp", "12352315", 1);
-
-    IO.println("ArrayList contains: " + books.contains(dP));
-*/
 }
