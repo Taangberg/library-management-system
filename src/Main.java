@@ -63,12 +63,4 @@ void main(String[] args) {
 
     consoleUI.run();
 
-/*
-    ArrayList<Book>books = new ArrayList<>();
-    books.add(new Book("Hp", "Dp", "12352315", 1));
-
-    Book dP = new Book("Hp", "Dp", "12352315", 1);
-
-    IO.println("ArrayList contains: " + books.contains(dP));
-*/
 }
