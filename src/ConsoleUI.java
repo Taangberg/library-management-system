@@ -18,7 +18,7 @@ public class ConsoleUI {
                     case 1 -> borrowBook();
                     case 2 -> returnBook();
                     case 3 -> showLoans();
-                    case 4 -> showBooks();
+                    case 4 -> showResources();
                     case 0 -> running = false;
                     default -> IO.println("Ugyldigt valg. Prøv igen");
                 }
@@ -47,23 +47,23 @@ public class ConsoleUI {
         }
         IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
 
-        ArrayList<Book> availableBooks = library.getAvailableBooks();
-        for (Book onShelf : availableBooks) {
-            IO.println("\n" + onShelf);
+        ArrayList<Resource> availableResources = library.getAvailableResources();
+        for (Resource onShelf : availableResources) {
+            IO.println(onShelf + "\n");
         }
         IO.println();
-        int bookId = Integer.parseInt(IO.readln("Indtast bog id: "));
+        String resourceID = IO.readln("Indtast bog id: ");
 
-        boolean succesLoan = library.loanBook(memberId, bookId);
+        boolean succesLoan = library.loanResource(memberId, resourceID);
 
         IO.println(succesLoan ? "Bogen er lånt!" : "Bogen er allerede udlånt");
 
     }
 
     private void returnBook() {
-        int bookId = Integer.parseInt(IO.readln("Indtast bog id: "));
+        String resourceID = IO.readln("Indtast bog id: ");
 
-        boolean succesReturn = library.returnBook(bookId);
+        boolean succesReturn = library.returnResource(resourceID);
 
         IO.println(succesReturn ? "Bogen er afleveret" : "Bogen er ikke udlånt");
     }
@@ -87,10 +87,11 @@ public class ConsoleUI {
         }
     }
 
-    private void showBooks() {
-        ArrayList<Book> books = library.getBooks();
-        for (Book book : books) {
-            IO.println("\n" + book);
+    private void showResources() {
+        ArrayList<Resource> b = library.getResources();
+        IO.println("Library\n------------------------------------------------------------------------------------");
+        for (Resource resource : b) {
+            IO.println(resource + "\n");
         }
     }
 }
