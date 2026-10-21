@@ -41,23 +41,27 @@ public class ConsoleUI {
     private void borrowBook() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
         Member member = library.getMember(memberId);
+
         if (member == null) {
             IO.println("Medlemsnummeret eksisterer ikke");
-            return;
         }
+        else {
         IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
-
         ArrayList<Resource> availableResources = library.getAvailableResources();
         for (Resource onShelf : availableResources) {
             IO.println(onShelf + "\n");
         }
         IO.println();
+
         String resourceID = IO.readln("Indtast bog id: ");
+        LoanResult loanResult = library.loanResource(memberId, resourceID);
 
-        boolean succesLoan = library.loanResource(memberId, resourceID);
-
-        IO.println(succesLoan ? "Bogen er lånt!" : "Bogen er allerede udlånt");
-
+        switch (loanResult) {
+            case SUCCESS     -> IO.println("Bogen er lånt!");
+            case LOANED      -> IO.println("Bogen er allerede udlånt");
+            case NO_RESOURCE -> IO.println("Bogen eksister ikke");
+            }
+        }
     }
 
     private void returnBook() {
