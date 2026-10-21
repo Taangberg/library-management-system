@@ -3,54 +3,52 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Library {
-    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<Resource> catalog = new ArrayList<>();
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Loan> loans = new ArrayList<>();
 
-    public void addBook(Book book) { books.add(book); }
+    public boolean isAvailable(String resourceID) {
+        for (Loan loan : loans) {
+            if (loan.resource().getId().equals(resourceID)) {
+                return false;
+            }
+        } return true;
+    }
 
-    public void addBooks(Book... newBooks) { books.addAll(Arrays.asList(newBooks)); }
+    // Adders
+    public void addResource(Resource resource) { catalog.add(resource); }  // <--- Superfluous
 
-    public void addMember(Member member) { members.add(member); }
+    public void addResources(Resource... newResources) { catalog.addAll(Arrays.asList(newResources)); }
+
+    public void addMember(Member member) { members.add(member); }   // <--- Superfluous
 
     public void addMembers(Member... newMembers) { members.addAll(Arrays.asList(newMembers)); }
 
     public void addLoan(Loan loan) { loans.add(loan); }
 
-    public ArrayList<Book> getBooks() { return books; }
+    // Getters
+    public ArrayList<Resource> getResources() { return catalog; }
 
     public ArrayList<Member> getMembers() { return members; }
 
     public ArrayList<Loan> getLoan() { return loans; }
 
-    public void printBooks() {
-        for (Book book : books) {
-            IO.println(book);
-        }
+    public Resource getResource(String resourceID) {
+        for (Resource resource : catalog) {
+            if (resource.getId().equals(resourceID)) {
+                return resource;
+            }
+        } return null;
     }
 
-    public void printMembers() {
-        for (Member member : members) {
-            IO.println(member);
-        }
-    }
-
-    public Book getBook(int id) {
-        for (Book book : books) {
-            if (book.getId() == id) {
-                return book;
+    public ArrayList<Resource> getAvailableResources() {
+        ArrayList<Resource> availableResources = new ArrayList<>();
+        for (Resource resource : catalog) {
+            if (isAvailable(resource.getId())) {
+                availableResources.add(resource);
             }
         }
-        return null;
-    }
-
-    public boolean isAvailable(int id) {
-        for (Loan loan : loans) {
-            if (loan.book().getId() == id) {
-                return false;
-            }
-        }
-        return true;
+        return availableResources;
     }
 
     public Member getMember(int id) {
@@ -58,8 +56,7 @@ public class Library {
             if (member.memberId() == id) {
                 return member;
             }
-        }
-        return null;
+        } return null;
     }
 
     public ArrayList<Loan> loansByMember(int memberId) {
@@ -72,24 +69,24 @@ public class Library {
         return memberLoans;
     }
 
-    public boolean loanBook(int memberID, int bookID) {
-        if (getMember(memberID) != null || getBook(bookID) != null) {
-            if (isAvailable(bookID)) {
-                Loan loan = new Loan(getBook(bookID), getMember(memberID), LocalDate.now());
+
+    // Loan / Return
+    public boolean loanResource(int memberID, String resourceID) {
+        if (getMember(memberID) != null || getResource(resourceID) != null) {
+            if (isAvailable(resourceID)) {
+                Loan loan = new Loan(getResource(resourceID), getMember(memberID), LocalDate.now());
                 addLoan(loan);
                 return true;
             }
-
         } else {
-            return false;
+            return false;       // Enums go here soon
         }
-
         return false;
     }
 
-    public boolean returnBook(int bookID) {
+    public boolean returnResource(String resourceID) {
         for (int i = 0; i < loans.size(); i++) {
-            if (loans.get(i).book().getId() == bookID) {
+            if (loans.get(i).resource().getId().equals(resourceID)) {
                 loans.remove(i);
                 return true;
             }
@@ -97,13 +94,16 @@ public class Library {
         return false;
     }
 
-    public ArrayList<Book> getAvailableBooks() {
-        ArrayList<Book> availableBooks = new ArrayList<>();
-        for (Book book : books) {
-            if (isAvailable(book.getId())) {
-                availableBooks.add(book);
-            }
+    // Printers     // Should probably be in ConsoleUI
+    public void printResources() {
+        for (Resource resource : catalog) {
+            IO.println(resource);
         }
-        return availableBooks;
+    }
+
+    public void printMembers() {
+        for (Member member : members) {
+            IO.println(member);
+        }
     }
 }

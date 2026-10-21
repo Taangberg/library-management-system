@@ -1,11 +1,11 @@
 import java.time.LocalDate;
 
-public record Loan(Book book, Member member, LocalDate borrowedDate) {
+public record Loan(Resource resource, Member member, LocalDate borrowedDate) {
 
     @Override
     public String toString() {
-        return "Bog: " + book + "\n\nLånt D. " + borrowedDate + " | Afleveringsfrist: " + getDueDate() + "\n";
-    }
+        return "Bog: " + resource + "\nLånt D. " + borrowedDate + " | Afleveringsfrist: " + getDueDate();
+    }   // Need variable name to "Bog: " depending on material
 
     public LocalDate getDueDate() {
         return borrowedDate.plusDays(14);
