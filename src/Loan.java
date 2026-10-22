@@ -4,7 +4,7 @@ public record Loan(Resource resource, Member member, LocalDate borrowedDate) {
 
     @Override
     public String toString() {
-        return "Bog: " + resource + "\nLånt D. " + borrowedDate + " | Afleveringsfrist: " + getDueDate();
+        return "Item: " + resource + "\nBorrowed on " + borrowedDate + " | Due date: " + getDueDate();
     }   // Need variable name to "Bog: " depending on material
 
     public LocalDate getDueDate() {
