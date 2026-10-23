@@ -12,7 +12,7 @@ public class ConsoleUI {
         while (running) {
             showMenu();
             try {
-                int choice = Integer.parseInt(IO.readln("Indtast valg: "));
+                int choice = Integer.parseInt(IO.readln("Input menu choice: "));
                 IO.println();
                 switch (choice) {
                     case 1 -> borrowBook();
@@ -20,7 +20,7 @@ public class ConsoleUI {
                     case 3 -> showLoans();
                     case 4 -> showResources();
                     case 0 -> running = false;
-                    default -> IO.println("Ugyldigt valg. Prøv igen");
+                    default -> IO.println("Invalid input. Try again");
                 }
             } catch (NumberFormatException numberFormatException) {
                 IO.println("Invalid input. Must be a number \nTry again \n");
@@ -30,20 +30,20 @@ public class ConsoleUI {
 
     private void showMenu() {
         IO.println();
-        IO.println("1. Lån");
-        IO.println("2. Aflever");
-        IO.println("3. Vis alle lån");
-        IO.println("4. Se bøger");
-        IO.println("0. Afslut");
+        IO.println("1. Borrow");
+        IO.println("2. Return");
+        IO.println("3. View all loans");
+        IO.println("4. View library collection");
+        IO.println("0. Quit");
         IO.println();
     }
 
     private void borrowBook() {
-        int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
+        int memberId = Integer.parseInt(IO.readln("Input member id: "));
         Member member = library.getMember(memberId);
 
         if (member == null) {
-            IO.println("Medlemsnummeret eksisterer ikke");
+            IO.println("Member id does not exist");
         }
         else {
         IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
@@ -53,38 +53,38 @@ public class ConsoleUI {
         }
         IO.println();
 
-        String resourceID = IO.readln("Indtast bog id: ");
+        String resourceID = IO.readln("Input item id: ");
         LoanResult loanResult = library.loanResource(memberId, resourceID);
 
         switch (loanResult) {
-            case SUCCESS     -> IO.println("Bogen er lånt!");
-            case LOANED      -> IO.println("Bogen er allerede udlånt");
-            case NO_RESOURCE -> IO.println("Bogen eksister ikke");
+            case SUCCESS     -> IO.println("Item successfully borrowed!");
+            case LOANED      -> IO.println("Item unavailable");
+            case NO_RESOURCE -> IO.println("Item does not exist");
             }
         }
     }
 
     private void returnBook() {
-        String resourceID = IO.readln("Indtast bog id: ");
+        String resourceID = IO.readln("Input item id: ");
 
         boolean succesReturn = library.returnResource(resourceID);
 
-        IO.println(succesReturn ? "Bogen er afleveret" : "Bogen er ikke udlånt");
+        IO.println(succesReturn ? "Item successfully returned" : "Item already in library");
     }
 
     private void showLoans() {
-        int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
+        int memberId = Integer.parseInt(IO.readln("Input member id: "));
 
         Member member = library.getMember(memberId);
         if (member == null) {
-            IO.println("Medlemsnummeret eksisterer ikke");
+            IO.println("Member does not exist");
             return;
         }
         IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
 
         ArrayList<Loan> memberLoans = library.loansByMember(memberId);
         if (memberLoans.isEmpty()) {
-            IO.println("Medlemmet har ikke nogen aktive lån");
+            IO.println("User has no active loans");
         }
         for (Loan loan : memberLoans) {
             IO.println(loan);
