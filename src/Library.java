@@ -78,7 +78,7 @@ public class Library {
         Resource resource = getResource(resourceID);
         if (member != null && resource != null) {
             if (isAvailable(resourceID)) {
-                Loan loan = new Loan(getResource(resourceID), getMember(memberID), LocalDate.now());
+                Loan loan = new Loan(resource, member, LocalDate.now());
                 addLoan(loan);
                 return LoanResult.SUCCESS;
             } else {
