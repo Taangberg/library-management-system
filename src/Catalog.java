@@ -58,10 +58,6 @@ public class Catalog {
                 "5030917289736");
         //</editor-fold>
 
-
-
-
-
         Member thorkild = new Member("Thorkild Hansen", 111);
         Member lise = new Member("Lise Andersen", 112);
         Member peter = new Member("Peter Larsen", 113);
