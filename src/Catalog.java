@@ -7,6 +7,8 @@ public class Catalog {
     public ArrayList<Loan> loans = new ArrayList<>();
 
     public Catalog() {
+
+        //<editor-fold desc="Book Creation">
         Book thinkJava = new Book("Think Java",
                 "Allan B. Downey",
                 280,
@@ -39,6 +41,22 @@ public class Catalog {
                 "Homer",
                 416,
                 "9780141192444");
+        //</editor-fold>
+
+        //<editor-fold desc="Audiobook Creation">
+        AudioBook harryPotterSeven = new AudioBook("Harry Potter and the Deathly Hallows, book 7",
+                "JK. Rowling",
+                "23 hrs and 59 mins",
+                "978-0747591108");
+
+        //</editor-fold>
+
+        //<editor-fold desc="Game Creation">
+        Game wowForever = new Game("World of Warcraft: Forever",
+                "PC",
+                "Blizzard Entertainment",
+                "5030917289736");
+        //</editor-fold>
 
         Member thorkild = new Member("Thorkild Hansen", 111);
         Member lise = new Member("Lise Andersen", 112);
