@@ -11,27 +11,13 @@ public class StandardLoanPolicyTest {
         //Arrange
         LoanPolicy loanPolicy = new StandardLoanPolicy();
         Member member = new Member("Test", 111);
-        Resource resource = new Book("Test book", "Test author", 200 , "1111");
-
-        //Act
-        boolean result = loanPolicy.canLoan(member, resource);
-
-        //Arrange
-        assertTrue(result);
-    }
-
-    @Test
-    void testNotEqualsCanLoan() {
-        //Arrange
-        LoanPolicy loanPolicy = new StandardLoanPolicy();
-        Member member = new Member("Test", 111);
         Resource resource = new Book("Test book", "Test author", 200, "1111");
 
         //Act
         boolean result = loanPolicy.canLoan(member, resource);
 
-        //Arrange
-        assertNotEquals(false,result);
+        //Assert
+        assertTrue(result);
     }
 
     @Test
@@ -49,17 +35,16 @@ public class StandardLoanPolicyTest {
     }
 
     @Test
-    void testNotEqualsCalculateDueDate() {
+    void testCalculateDueDateFeburary() {
         //Arrange
         LoanPolicy loanPolicy = new StandardLoanPolicy();
-        LocalDate borrowedDate = LocalDate.of(2026,10,28);
-        LocalDate expectedDate = LocalDate.of(2026, 11, 28);
+        LocalDate borrowedDate = LocalDate.of(2027,2,3);
+        LocalDate expectedDate = LocalDate.of(2027, 3, 5);
 
         //Act
         LocalDate actualDate = loanPolicy.calculateDueDate(borrowedDate);
 
         //Assert
-        assertNotEquals(expectedDate,actualDate);
+        assertEquals(expectedDate,actualDate);
     }
-
 }
