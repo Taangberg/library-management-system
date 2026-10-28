@@ -7,6 +7,8 @@ public class LoanTest {
     Resource resource;
     Member member;
     Loan loan;
+    LocalDate borrowedDate;
+    LocalDate dueDate;
 
     //method to create a run for the whole test
     @BeforeEach
@@ -16,7 +18,7 @@ public class LoanTest {
                 280,
                 "9781492072508");
         member = new Member("Thorkild Hansen", 111);
-        loan = new Loan(resource, member, LocalDate.now());
+        loan = new Loan(resource, member, borrowedDate, dueDate);
     }
 
     //test getResource()

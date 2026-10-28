@@ -58,6 +58,7 @@ public class Catalog {
                 "5030917289736");
         //</editor-fold>
 
+        //<editor-fold desc="Member Creation">
         Member thorkild = new Member("Thorkild Hansen", 111);
         Member lise = new Member("Lise Andersen", 112);
         Member peter = new Member("Peter Larsen", 113);
@@ -66,10 +67,13 @@ public class Catalog {
         Member valdemar = new Member("Valdemar Jørgensen", 116);
         Member mathilde = new Member("Mathilde Asmussen", 117);
         Member ida = new Member("Ida Poppel", 118);
+        //</editor-fold>
 
+        //<editor-fold desc="Add to list">
         resources.addAll(Arrays.asList(thinkJava, omrids, sapiens, atomicHabits, theIntelligentInvestor, open, theIliad, theOdyssey));
         members.addAll(Arrays.asList(thorkild, lise, peter, hans, sophie, valdemar, mathilde, ida));
         loans.addAll(Arrays.asList());  // Empty
+        //</editor-fold>
     }
 
     public ArrayList<Resource> getResources() {

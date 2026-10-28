@@ -8,7 +8,8 @@ public class LibraryTest {
     @Test
     void testSuccessfulLoan() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy loanPolicy = new StandardLoanPolicy();
+        Library library = new Library(loanPolicy);
         int memberID = 111;
         String resourceID = "9781492072508";
         //Act
@@ -20,7 +21,8 @@ public class LibraryTest {
     @Test
     void testNotEqualsSuccessfulLoan() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy loanPolicy = new StandardLoanPolicy();
+        Library library = new Library(loanPolicy);
         int memberID = 111;
         String resourceID = "9781492072508";
         //Act
@@ -32,7 +34,8 @@ public class LibraryTest {
     @Test
     void testAlreadyLoaned() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy loanPolicy = new StandardLoanPolicy();
+        Library library = new Library(loanPolicy);
         int memberID = 111;
         String resourceID = "9781492072508";
         //Act
@@ -45,7 +48,8 @@ public class LibraryTest {
     @Test
     void testNotEqualsAlreadyLoaned() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy loanPolicy = new StandardLoanPolicy();
+        Library library = new Library(loanPolicy);
         int memberID = 111;
         String resourceID = "9781492072508";
 

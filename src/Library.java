@@ -5,12 +5,14 @@ public class Library {
     private ArrayList<Resource> resources;
     private ArrayList<Member> members;
     private ArrayList<Loan> loans;
+    private final LoanPolicy loanPolicy;
 
-    public Library() {
+    public Library(LoanPolicy loanPolicy) {
         Catalog catalog = new Catalog();
         resources = catalog.getResources();
         members = catalog.getMembers();
         loans = catalog.getLoans();
+        this.loanPolicy = loanPolicy;
     }
 
     public boolean isAvailable(String resourceID) {
@@ -78,9 +80,15 @@ public class Library {
         Resource resource = getResource(resourceID);
         if (member != null && resource != null) {
             if (isAvailable(resourceID)) {
-                Loan loan = new Loan(resource, member, LocalDate.now());
-                addLoan(loan);
-                return LoanResult.SUCCESS;
+                if (loanPolicy.canLoan(member, resource)) {
+                    LocalDate borrowedDate = LocalDate.now();
+                    LocalDate dueDate = loanPolicy.calculateDueDate(borrowedDate);
+                    Loan loan = new Loan(resource, member,borrowedDate, dueDate);
+                    addLoan(loan);
+                    return LoanResult.SUCCESS;
+                } else {
+                    return LoanResult.NOT_PERMITTED;
+                }
             } else {
                 return LoanResult.LOANED;
             }
