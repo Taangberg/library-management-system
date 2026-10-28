@@ -80,9 +80,9 @@ public class Library {
         Resource resource = getResource(resourceID);
         if (member != null && resource != null) {
             if (isAvailable(resourceID)) {
-                if (loanPolicy.canLoan(member, resource)) {
+                if (loanPolicy.canLoan(member, resource, loans)) {
                     LocalDate borrowedDate = LocalDate.now();
-                    LocalDate dueDate = loanPolicy.calculateDueDate(borrowedDate);
+                    LocalDate dueDate = loanPolicy.calculateDueDate(borrowedDate, resource);
                     Loan loan = new Loan(resource, member,borrowedDate, dueDate);
                     addLoan(loan);
                     return LoanResult.SUCCESS;
