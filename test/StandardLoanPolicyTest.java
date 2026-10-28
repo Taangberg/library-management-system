@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,9 +14,10 @@ public class StandardLoanPolicyTest {
         LoanPolicy loanPolicy = new StandardLoanPolicy();
         Member member = new Member("Test", 111);
         Resource resource = new Book("Test book", "Test author", 200, "1111");
+        List<Loan> loans = new ArrayList<>();
 
         //Act
-        boolean result = loanPolicy.canLoan(member, resource);
+        boolean result = loanPolicy.canLoan(member, resource, loans);
 
         //Assert
         assertTrue(result);
@@ -24,27 +27,27 @@ public class StandardLoanPolicyTest {
     void testCalculateDueDate() {
         //Arrange
         LoanPolicy loanPolicy = new StandardLoanPolicy();
-        LocalDate borrowedDate = LocalDate.of(2026,10,28);
+        LocalDate borrowedDate = LocalDate.of(2026, 10, 28);
         LocalDate expectedDate = LocalDate.of(2026, 11, 27);
-
+        Resource resource = new Book("Test book", "Test author", 200, "1111");
         //Act
-        LocalDate actualDate = loanPolicy.calculateDueDate(borrowedDate);
+        LocalDate actualDate = loanPolicy.calculateDueDate(borrowedDate, resource);
 
         //Assert
-        assertEquals(expectedDate,actualDate);
+        assertEquals(expectedDate, actualDate);
     }
 
     @Test
-    void testCalculateDueDateFeburary() {
+    void testCalculateDueDateLeapYear() {
         //Arrange
         LoanPolicy loanPolicy = new StandardLoanPolicy();
-        LocalDate borrowedDate = LocalDate.of(2027,2,3);
-        LocalDate expectedDate = LocalDate.of(2027, 3, 5);
-
+        LocalDate borrowedDate = LocalDate.of(2028, 2, 3);
+        LocalDate expectedDate = LocalDate.of(2028, 3, 4);
+        Resource resource = new Book("Test book", "Test author", 200, "1111");
         //Act
-        LocalDate actualDate = loanPolicy.calculateDueDate(borrowedDate);
+        LocalDate actualDate = loanPolicy.calculateDueDate(borrowedDate, resource);
 
         //Assert
-        assertEquals(expectedDate,actualDate);
+        assertEquals(expectedDate, actualDate);
     }
 }
