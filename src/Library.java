@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Library {
-    private ArrayList<Resource> resources;
-    private ArrayList<Member> members;
-    private ArrayList<Loan> loans;
+    private List<Resource> resources;
+    private List<Member> members;
+    private List<Loan> loans;
     private final LoanPolicy loanPolicy;
 
     public Library(LoanPolicy loanPolicy) {
@@ -32,11 +33,11 @@ public class Library {
     public void addLoan(Loan loan) { loans.add(loan); }
 
     // Getters
-    public ArrayList<Resource> getResources() { return resources; }
+    public List<Resource> getResources() { return resources; }
 
-    public ArrayList<Member> getMembers() { return members; }
+    public List<Member> getMembers() { return members; }
 
-    public ArrayList<Loan> getLoan() { return loans; }
+    public List<Loan> getLoan() { return loans; }
 
     public Resource getResource(String resourceID) {
         for (Resource resource : resources) {
@@ -46,8 +47,8 @@ public class Library {
         } return null;
     }
 
-    public ArrayList<Resource> getAvailableResources() {
-        ArrayList<Resource> availableResources = new ArrayList<>();
+    public List<Resource> getAvailableResources() {
+        List<Resource> availableResources = new ArrayList<>();
         for (Resource resource : resources) {
             if (isAvailable(resource.getId())) {
                 availableResources.add(resource);
@@ -64,8 +65,8 @@ public class Library {
         } return null;
     }
 
-    public ArrayList<Loan> loansByMember(int memberId) {
-        ArrayList<Loan> memberLoans = new ArrayList<>();
+    public List<Loan> loansByMember(int memberId) {
+        List<Loan> memberLoans = new ArrayList<>();
         for (Loan loan : loans) {
             if (loan.member().memberId() == memberId) {
                 memberLoans.add(loan);

@@ -7,8 +7,8 @@ public class LoanTest {
     Resource resource;
     Member member;
     Loan loan;
-    LocalDate borrowedDate;
-    LocalDate dueDate;
+    LocalDate borrowedDate = LocalDate.of(2026, 11, 1);
+    LocalDate dueDate = LocalDate.of(2026, 12, 1);
 
     //method to create a run for the whole test
     @BeforeEach
@@ -59,13 +59,15 @@ public class LoanTest {
         //Act
         LocalDate result = loan.borrowedDate();
         //Assert
-        assertEquals(LocalDate.now(), result);
+        assertEquals(borrowedDate, result);
     }
+
+    //test dueDate
     @Test
-    void testNotEqualsGetBorrowedDate() {
+    void testDueDate() {
         //Act
-        LocalDate result = loan.borrowedDate();
+        LocalDate result = loan.dueDate();
         //Assert
-        assertNotEquals(LocalDate.now().plusDays(14), result);
+        assertEquals(dueDate, result);
     }
 }

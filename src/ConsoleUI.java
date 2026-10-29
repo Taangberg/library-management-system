@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public class ConsoleUI {
     private final Library library;
@@ -47,7 +47,7 @@ public class ConsoleUI {
         }
         else {
         IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
-        ArrayList<Resource> availableResources = library.getAvailableResources();
+        List<Resource> availableResources = library.getAvailableResources();
         for (Resource onShelf : availableResources) {
             IO.println(onShelf + "\n");
         }
@@ -60,6 +60,7 @@ public class ConsoleUI {
             case SUCCESS     -> IO.println("Item successfully borrowed!");
             case LOANED      -> IO.println("Item unavailable");
             case NO_RESOURCE -> IO.println("Item does not exist");
+            case NOT_PERMITTED -> IO.println("Member is not permitted to borrow this item");
             }
         }
     }
@@ -82,7 +83,7 @@ public class ConsoleUI {
         }
         IO.println("\n" + member + "\n------------------------------------------------------------------------------------");
 
-        ArrayList<Loan> memberLoans = library.loansByMember(memberId);
+        List<Loan> memberLoans = library.loansByMember(memberId);
         if (memberLoans.isEmpty()) {
             IO.println("User has no active loans");
         }
@@ -92,7 +93,7 @@ public class ConsoleUI {
     }
 
     private void showResources() {
-        ArrayList<Resource> b = library.getResources();
+        List<Resource> b = library.getResources();
         IO.println("Library\n------------------------------------------------------------------------------------");
         for (Resource resource : b) {
             IO.println(resource + "\n");

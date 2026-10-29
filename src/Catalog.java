@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Catalog {
-    public ArrayList<Resource> resources = new ArrayList<>();
-    public ArrayList<Member> members = new ArrayList<>();
-    public ArrayList<Loan> loans = new ArrayList<>();
+    public List<Resource> resources = new ArrayList<>();
+    public List<Member> members = new ArrayList<>();
+    public List<Loan> loans = new ArrayList<>();
 
     public Catalog() {
 
@@ -70,19 +71,19 @@ public class Catalog {
         //</editor-fold>
 
         //<editor-fold desc="Add to list">
-        resources.addAll(Arrays.asList(thinkJava, omrids, sapiens, atomicHabits, theIntelligentInvestor, open, theIliad, theOdyssey));
+        resources.addAll(Arrays.asList(thinkJava, omrids, sapiens, atomicHabits, theIntelligentInvestor, open, theIliad, theOdyssey, harryPotterSeven, wowForever));
         members.addAll(Arrays.asList(thorkild, lise, peter, hans, sophie, valdemar, mathilde, ida));
         loans.addAll(Arrays.asList());  // Empty
         //</editor-fold>
     }
 
-    public ArrayList<Resource> getResources() {
+    public List<Resource> getResources() {
         return resources;
     }
-    public ArrayList<Member> getMembers() {
+    public List<Member> getMembers() {
         return members;
     }
-    public ArrayList<Loan> getLoans() {
+    public List<Loan> getLoans() {
         return loans;
     }
 }
