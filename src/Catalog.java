@@ -45,7 +45,7 @@ public class Catalog {
         //</editor-fold>
 
         //<editor-fold desc="Audiobook Creation">
-        AudioBook harryPotterSeven = new AudioBook("Harry Potter and the Deathly Hallows, book 7",
+        AudioBook harryPotterSeven = new AudioBook("Harry Potter and the Deathly Hallows",
                 "JK. Rowling",
                 "23 hrs and 59 mins",
                 "978-0747591108");

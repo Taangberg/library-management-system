@@ -4,16 +4,26 @@ import java.util.*;
 
 public class FileHandler {
     private final CSVMapper csvMapper;
-    private Path path;      // Unsure about path
+    private final Path bookPath;
+    private final Path audioBookPath;
+    private final Path moviePath;
+    private final Path gamePath;
+    private final Path memberPath;
+    private final Path loanPath;
 
-    public FileHandler(Path path, CSVMapper csvMapper) {
-        this.path = path;
-        this.csvMapper = csvMapper;
+    public FileHandler(Path dataDir, CSVMapper csvMapper) {
+        this.csvMapper    = csvMapper;
+        this.bookPath     = dataDir.resolve("books.csv");
+        this.audioBookPath= dataDir.resolve("audiobooks.csv");
+        this.moviePath    = dataDir.resolve("movies.csv");
+        this.gamePath     = dataDir.resolve("games.csv");
+        this.memberPath   = dataDir.resolve("members.csv");
+        this.loanPath     = dataDir.resolve("loans.csv");
     }
 
     // ___________Member___________
     public void saveMembers(List<Member> members) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(memberPath)) {
             for (Member member : members) {
                 writer.write(csvMapper.memberToCSV(member));
                 writer.newLine();
@@ -23,7 +33,7 @@ public class FileHandler {
 
     public List<Member> loadMembers() throws IOException {
         List<Member> members = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        try (BufferedReader reader = Files.newBufferedReader(memberPath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 members.add(csvMapper.memberFromCSV(line));
@@ -34,7 +44,7 @@ public class FileHandler {
 
     // ___________Book___________
     public void saveBooks(List<Book> books) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(bookPath)) {
             for (Book book : books) {
                 writer.write(csvMapper.bookToCSV(book));
                 writer.newLine();
@@ -44,7 +54,7 @@ public class FileHandler {
 
     public List<Book> loadBooks() throws IOException {
         List<Book> books = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        try (BufferedReader reader = Files.newBufferedReader(bookPath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 books.add(csvMapper.bookFromCSV(line));
@@ -55,7 +65,7 @@ public class FileHandler {
 
     // ___________AudioBook___________
     public void saveAudioBooks(List<AudioBook> audioBooks) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(audioBookPath)) {
             for (AudioBook audioBook : audioBooks) {
                 writer.write(csvMapper.audioBookToCSV(audioBook));
                 writer.newLine();
@@ -65,7 +75,7 @@ public class FileHandler {
 
     public List<AudioBook> loadAudioBooks() throws IOException {
         List<AudioBook> audioBooks = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        try (BufferedReader reader = Files.newBufferedReader(audioBookPath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 audioBooks.add(csvMapper.audioBookFromCSV(line));
@@ -76,7 +86,7 @@ public class FileHandler {
 
     // ___________Movie___________
     public void saveMovies(List<Movie> movies) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(moviePath)) {
             for (Movie movie : movies) {
                 writer.write(csvMapper.movieToCSV(movie));
                 writer.newLine();
@@ -86,7 +96,7 @@ public class FileHandler {
 
     public List<Movie> loadMovies() throws IOException {
         List<Movie> movies = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        try (BufferedReader reader = Files.newBufferedReader(moviePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 movies.add(csvMapper.movieFromCSV(line));
@@ -97,7 +107,7 @@ public class FileHandler {
 
     // ___________Game___________
     public void saveGames(List<Game> games) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(gamePath)) {
             for (Game game : games) {
                 writer.write(csvMapper.gameToCSV(game));
                 writer.newLine();
@@ -107,7 +117,7 @@ public class FileHandler {
 
     public List<Game> loadGames() throws IOException {
         List<Game> games = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        try (BufferedReader reader = Files.newBufferedReader(gamePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 games.add(csvMapper.gameFromCSV(line));
@@ -118,7 +128,7 @@ public class FileHandler {
 
     // ___________Loan___________
     public void saveLoans(List<Loan> loans) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(loanPath)) {
             for (Loan loan : loans) {
                 writer.write(csvMapper.loanToCSV(loan));
                 writer.newLine();
@@ -128,7 +138,7 @@ public class FileHandler {
 
     public List<Loan> loadLoans(List<Member> members, List<Resource> resources) throws IOException {
         List<Loan> loans = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
+        try (BufferedReader reader = Files.newBufferedReader(loanPath)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 loans.add(csvMapper.loanFromCSV(line, members, resources));
