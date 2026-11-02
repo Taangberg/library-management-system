@@ -12,7 +12,10 @@ public class CSVMapper {
 
     public Member memberFromCSV(String line) {
         String[] tokens = line.split(d, -1);
-        return new Member(tokens[0], Integer.parseInt(tokens[1]));
+        if (tokens.length == 2) {
+            return new Member(tokens[0], Integer.parseInt(tokens[1]));
+        }
+        return null;
     }
 
     // ___________Book___________
@@ -25,7 +28,10 @@ public class CSVMapper {
 
     public Book bookFromCSV(String line) {
         String[] tokens = line.split(d, -1);
-        return new Book(tokens[0], tokens[1], Integer.parseInt(tokens[2]), tokens[3]);
+        if (tokens.length == 4) {
+            return new Book(tokens[0], tokens[1], Integer.parseInt(tokens[2]), tokens[3]);
+        }
+        return null;
     }
 
     // ___________AudioBook___________
@@ -38,7 +44,10 @@ public class CSVMapper {
 
     public AudioBook audioBookFromCSV(String line) {
         String[] tokens = line.split(d, -1);
-        return new AudioBook(tokens[0], tokens[1], tokens[2], tokens[3]);
+        if (tokens.length == 4) {
+            return new AudioBook(tokens[0], tokens[1], tokens[2], tokens[3]);
+        }
+        return null;
     }
 
     // ___________Movie___________
@@ -52,7 +61,10 @@ public class CSVMapper {
 
     public Movie movieFromCSV(String line) {
         String[] tokens = line.split(d, -1);
-        return new Movie(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]);
+        if (tokens.length == 5) {
+            return new Movie(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]);
+        }
+        return null;
     }
 
     // ___________Game___________
@@ -65,7 +77,10 @@ public class CSVMapper {
 
     public Game gameFromCSV(String line) {
         String[] tokens = line.split(d, -1);
-        return new Game(tokens[0], tokens[1], tokens[2], tokens[3]);
+        if (tokens.length == 4) {
+            return new Game(tokens[0], tokens[1], tokens[2], tokens[3]);
+        }
+        return null;
     }
 
     // ___________Loan___________
@@ -78,19 +93,21 @@ public class CSVMapper {
 
     public Loan loanFromCSV(String line, List<Member> members, List<Resource> resources) {
         String[] tokens = line.split(d, -1);
+        if (tokens.length == 4) {
+            String resourceId = tokens[0];
+            int memberId = Integer.parseInt(tokens[1]);
 
-        String resourceId = tokens[0];
-        int memberId = Integer.parseInt(tokens[1]);
+            Resource resource = findResource(resources, resourceId);
+            Member member = findMember(members, memberId);
 
-        Resource resource = findResource(resources, resourceId);
-        Member member = findMember(members, memberId);
-
-        return new Loan(resource, member, LocalDate.parse(tokens[2]), LocalDate.parse(tokens[3]));
-    }   // I do not know how to parse this
+            return new Loan(resource, member, LocalDate.parse(tokens[2]), LocalDate.parse(tokens[3]));
+        }
+        return null;
+    }
 
     private static Resource findResource(List<Resource> resources, String resourceId) {
         for (Resource r : resources) {
-            if (r.getId() == resourceId) {
+            if (r.getId().equals(resourceId)) {
                return r;
             }
         }

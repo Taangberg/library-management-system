@@ -6,23 +6,25 @@ void main(){
     FileHandler fileHandler = new FileHandler(Path.of(dir), new CSVMapper());
     List<Resource> resources = new ArrayList<>();
     List<Loan> loans = new ArrayList<>();
-    List<Member> members = new ArrayList<>();
+    List<Member> members;
 
     // Resources
-    List<AudioBook> audioBooks = new ArrayList<>();
-    List<Book> books = new ArrayList<>();
-    List<Game> games = new ArrayList<>();
+    List<AudioBook> audioBooks;
+    List<Book> books;
+    List<Game> games;
     List<Movie> movies = new ArrayList<>();
 
     // save to CSV
-    try {
+/*    try {
         fileHandler.saveAudioBooks(audioBooks);
         fileHandler.saveBooks(books);
         fileHandler.saveGames(games);
         fileHandler.saveMovies(movies);
+        fileHandler.saveMembers(members);
+        fileHandler.saveLoans(loans);
     } catch (IOException e) {
         IO.println(e.getLocalizedMessage());
-    }
+    } */
 
     // load from CSV
     try {
