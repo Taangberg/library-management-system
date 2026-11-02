@@ -5,4 +5,11 @@ public record Member(String name, int memberId) {
         return name + " (Member id: " + memberId + ")";
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return memberId;
+    }
 }
