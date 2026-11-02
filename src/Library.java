@@ -8,12 +8,27 @@ public class Library {
     private List<Loan> loans;
     private final LoanPolicy loanPolicy;
 
-    public Library(LoanPolicy loanPolicy) {
-        Catalog catalog = new Catalog();
-        resources = catalog.getResources();
+    public Library(LoanPolicy loanPolicy, List<Resource> resources, List<Member> members, List<Loan> loans) {
+        this.loanPolicy = loanPolicy;
+        this.resources = resources;
+        this.members = members;
+        this.loans = loans;
+    }
+
+    public Library(LoanPolicy loanPolicy, Catalog catalog) {
+       resources = catalog.getResources();
         members = catalog.getMembers();
         loans = catalog.getLoans();
         this.loanPolicy = loanPolicy;
+    }
+
+    public Library(LoanPolicy loanPolicy) {
+        this(
+                loanPolicy,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
     }
 
     public boolean isAvailable(String resourceID) {

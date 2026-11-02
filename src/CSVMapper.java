@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.util.List;
+
 public class CSVMapper {
     private String d = ","; // delimiter
 
@@ -73,8 +76,35 @@ public class CSVMapper {
                 + d + loan.getDueDate();
     }
 
-    public Loan loanFromCSV(String line) {
+    public Loan loanFromCSV(String line, List<Member> members, List<Resource> resources) {
         String[] tokens = line.split(d, -1);
-        return new Loan(tokens[0], tokens[1], tokens[2], tokens[3]);
-    }   // I dont know how to parse this
+
+        String resourceId = tokens[0];
+        int memberId = Integer.parseInt(tokens[1]);
+
+        Resource resource = findResource(resources, resourceId);
+        Member member = findMember(members, memberId);
+
+        return new Loan(resource, member, LocalDate.parse(tokens[2]), LocalDate.parse(tokens[3]));
+    }   // I do not know how to parse this
+
+    private static Resource findResource(List<Resource> resources, String resourceId) {
+        for (Resource r : resources) {
+            if (r.getId() == resourceId) {
+               return r;
+            }
+        }
+        return null;
+    }
+
+    private static Member findMember(List<Member> members, int memberId) {
+        for (Member m : members) {
+            if (m.getId() == memberId) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+
 }

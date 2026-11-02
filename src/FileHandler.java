@@ -126,12 +126,12 @@ public class FileHandler {
         }
     }
 
-    public List<Loan> loadLoans() throws IOException {
+    public List<Loan> loadLoans(List<Member> members, List<Resource> resources) throws IOException {
         List<Loan> loans = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                loans.add(csvMapper.loanFromCSV(line));
+                loans.add(csvMapper.loanFromCSV(line, members, resources));
             }
         }
         return loans;
