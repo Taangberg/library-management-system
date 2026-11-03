@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.nio.file.Files;
 
 public class FileHandlerTest {
 
@@ -26,6 +27,32 @@ public class FileHandlerTest {
         assertEquals(1, loadedMembers.size());
         assertEquals("Peter", loadedMembers.get(0).getName());
         assertEquals(1234, loadedMembers.get(0).getId());
+    }
+
+    @Test
+    void testSaveMembersCSVindhold() throws IOException{
+
+        //ARRANGe
+        CSVMapper csvMapper = new CSVMapper();
+        FileHandler fileHandler = new FileHandler(tempDir, csvMapper);
+        Member member = new Member("Peter", 1234);
+
+
+        //ACT
+        fileHandler.saveMembers(List.of(member));
+        Path memberFile = tempDir.resolve("members.csv");
+
+        /*Vi tester saveMembers() uafhængigt af loadMembers(),
+        så vi kan kontrollere, om filens indhold bliver gemt korrekt.
+        Derfor læser vi CSV-filen direkte som en String.
+         */
+        String csvIndhold = Files.readString(memberFile);
+
+        //ASSERt
+        assertEquals("Peter,1234", csvIndhold.strip());
+
+
+
     }
 
 
