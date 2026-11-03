@@ -51,7 +51,25 @@ public class FileHandlerTest {
         //ASSERt
         assertEquals("Peter,1234", csvIndhold.strip());
 
+    }
 
+    @Test
+    void testLoadMembers() throws IOException{
+
+        //ARRANGE
+        Path memberFile = tempDir.resolve("members.csv");
+        Files.writeString(memberFile, "Peter,1234");
+
+        CSVMapper csvMapper = new CSVMapper();
+        FileHandler fileHandler = new FileHandler(tempDir, csvMapper);
+
+        //ACt
+        List<Member> loadedMembers = fileHandler.loadMembers();
+
+        //ASSERT
+        assertEquals(1, loadedMembers.size());
+        assertEquals("Peter", loadedMembers.get(0).getName());
+        assertEquals(1234, loadedMembers.get(0).getId());
 
     }
 
