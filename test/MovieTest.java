@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieTest {
@@ -17,6 +18,7 @@ public class MovieTest {
         //Assert
         assertEquals("Amazon MGM", creator);
     }
+
     @Test
     void notGetCreator() {
         //Arrange
@@ -45,6 +47,7 @@ public class MovieTest {
         //Assert
         assertEquals("5053083215408", ID);
     }
+
     @Test
     void notGetID() {
         //Arrange
@@ -62,17 +65,18 @@ public class MovieTest {
     //test getTitle()
     @Test
     void getTitle() {
-       //Arrange
-       Movie movie = new Movie("No Time To Die",
-               "Cary Fukunaga",
-               "Amazon MGM",
-               "2,37",
-               "5053083215408");
-       //Act
-       String title = movie.getTitle();
-       //Assert
-       assertEquals("No Time To Die", title);
-   }
+        //Arrange
+        Movie movie = new Movie("No Time To Die",
+                "Cary Fukunaga",
+                "Amazon MGM",
+                "2,37",
+                "5053083215408");
+        //Act
+        String title = movie.getTitle();
+        //Assert
+        assertEquals("No Time To Die", title);
+    }
+
     @Test
     void notGetTitle() {
         //Arrange
@@ -101,6 +105,7 @@ public class MovieTest {
         //Assert
         assertEquals("Cary Fukunaga", director);
     }
+
     @Test
     void notGetDirector() {
         //Arrange
@@ -129,6 +134,7 @@ public class MovieTest {
         //Assert
         assertEquals("2,37", runtime);
     }
+
     @Test
     void notGetRuntime() {
         //Assert
