@@ -15,13 +15,6 @@ public class Library {
         this.loans = loans;
     }
 
-    public Library(LoanPolicy loanPolicy, Catalog catalog) {
-       resources = catalog.getResources();
-        members = catalog.getMembers();
-        loans = catalog.getLoans();
-        this.loanPolicy = loanPolicy;
-    }
-
     public Library(LoanPolicy loanPolicy) {
         this(
                 loanPolicy,
@@ -39,11 +32,11 @@ public class Library {
         } return true;
     }
 
-  /*public void addResource(Resource resource) { resources.add(resource); }  // <--- Superfluous
-    public void addResources(Resource... newResources) { resources.addAll(Arrays.asList(newResources)); }
+    public void addResource(Resource resource) { resources.add(resource); }  // <--- Superfluous
+    //public void addResources(Resource... newResources) { resources.addAll(Arrays.asList(newResources)); }
 
     public void addMember(Member member) { members.add(member); }   // <--- Superfluous
-    public void addMembers(Member... newMembers) { members.addAll(Arrays.asList(newMembers)); }*/
+    //public void addMembers(Member... newMembers) { members.addAll(Arrays.asList(newMembers)); }
 
     public void addLoan(Loan loan) { loans.add(loan); }
 

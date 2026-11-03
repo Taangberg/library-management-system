@@ -12,13 +12,36 @@ public class FileHandler {
     private final Path loanPath;
 
     public FileHandler(Path dataDir, CSVMapper csvMapper) {
-        this.csvMapper    = csvMapper;
-        this.bookPath     = dataDir.resolve("books.csv");
-        this.audioBookPath= dataDir.resolve("audiobooks.csv");
-        this.moviePath    = dataDir.resolve("movies.csv");
-        this.gamePath     = dataDir.resolve("games.csv");
-        this.memberPath   = dataDir.resolve("members.csv");
-        this.loanPath     = dataDir.resolve("loans.csv");
+        this.csvMapper = csvMapper;
+        this.bookPath = dataDir.resolve("books.csv");
+        this.audioBookPath = dataDir.resolve("audiobooks.csv");
+        this.moviePath = dataDir.resolve("movies.csv");
+        this.gamePath = dataDir.resolve("games.csv");
+        this.memberPath = dataDir.resolve("members.csv");
+        this.loanPath = dataDir.resolve("loans.csv");
+    }
+    // ___________Resources___________
+    public void saveResources(List<Resource> resources) throws IOException {
+        List<Book> books = new ArrayList<>();
+        List<AudioBook> audioBooks = new ArrayList<>();
+        List<Movie> movies = new ArrayList<>();
+        List<Game> games = new ArrayList<>();
+
+        for (Resource resource : resources) {
+            if (resource instanceof Book book) {
+                books.add(book);
+            } else if (resource instanceof AudioBook audioBook) {
+                audioBooks.add(audioBook);
+            } else if (resource instanceof Movie movie) {
+                movies.add(movie);
+            } else if (resource instanceof Game game){
+                games.add(game);
+            }
+        }
+        saveBooks(books);
+        saveAudioBooks(audioBooks);
+        saveMovies(movies);
+        saveGames(games);
     }
 
     // ___________Member___________
