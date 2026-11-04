@@ -149,8 +149,32 @@ public class ConsoleUI {
         List<Resource> resources = library.getResources();
         IO.println("Library");
         printSeperator();
+        IO.println("Books: ");
         for (Resource resource : resources) {
-            IO.println(resource);
+            if (resource instanceof Book book) {
+                IO.println(book);
+            }
+        }
+        IO.println();
+        IO.println("Audio Books: ");
+        for (Resource resource : resources) {
+            if (resource instanceof AudioBook audioBook) {
+                IO.println(audioBook);
+            }
+        }
+        IO.println();
+        IO.println("Games: ");
+        for (Resource resource : resources) {
+            if (resource instanceof Game game) {
+                IO.println(game);
+            }
+        }
+        IO.println();
+        IO.println("Movies: ");
+        for (Resource resource : resources) {
+            if (resource instanceof Movie movie) {
+                IO.println(movie);
+            }
         }
         printSeperator();
     }
@@ -200,7 +224,9 @@ public class ConsoleUI {
         String author = IO.readln("Input author: ");
         int pageCount = Integer.parseInt(IO.readln("Input pagecount: "));
         String ISBN = IO.readln("Input ISBN: ");
-        checkResourceId(ISBN);
+        if (checkResourceId(ISBN)) {
+            return;
+        }
         library.addResource(new Book(title, author, pageCount, ISBN));
         successfullyAdded(title);
     }
@@ -210,7 +236,9 @@ public class ConsoleUI {
         String author = IO.readln("Input author: ");
         String runtime = IO.readln("Input runtime: ");
         String ISBN = IO.readln("Input ISBN: ");
-        checkResourceId(ISBN);
+        if (checkResourceId(ISBN)) {
+            return;
+        }
         library.addResource(new AudioBook(title, author, runtime, ISBN));
         successfullyAdded(title);
     }
@@ -220,7 +248,9 @@ public class ConsoleUI {
         String platform = IO.readln("Input platform: ");
         String studio = IO.readln("Input studio: ");
         String EAN = IO.readln("Input EAN: ");
-        checkResourceId(EAN);
+        if (checkResourceId(EAN)) {
+            return;
+        }
         library.addResource(new Game(title, platform, studio, EAN));
         successfullyAdded(title);
     }
@@ -231,15 +261,19 @@ public class ConsoleUI {
         String studio = IO.readln("Input studio: ");
         String runtime = IO.readln("Input runtime: ");
         String EAN = IO.readln("Input EAN: ");
-        checkResourceId(EAN);
+        if (checkResourceId(EAN)) {
+            return;
+        }
         library.addResource(new Movie(title, director, studio, runtime, EAN));
         successfullyAdded(title);
     }
 
-    private void checkResourceId(String ID) {
+    private boolean checkResourceId(String ID) {
         if (library.getResource(ID) != null) {
             IO.println("Resource already added");
+            return true;
         }
+        return false;
     }
 
     private void successfullyAdded(String title) {
