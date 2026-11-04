@@ -1,4 +1,6 @@
-public abstract class Resource {
+import java.util.Comparator;
+
+public abstract class Resource implements Comparable<Resource> {
     final String title;
     final String creator;
     final String id;
@@ -17,5 +19,10 @@ public abstract class Resource {
 
     public String toString() {
         return title + ", by " + creator + " [ID: " + id + "]";
+    }
+
+    @Override
+    public int compareTo(Resource other) {
+        return this.id.compareTo(other.id);
     }
 }
