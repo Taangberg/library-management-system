@@ -61,8 +61,32 @@ public class ConsoleUI {
             IO.println("\n" + member);
             printSeperator();
             List<Resource> availableResources = library.getAvailableResources();
-            for (Resource onShelf : availableResources) {
-                IO.println(onShelf);
+            IO.println("Books: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof Book book) {
+                    IO.println(book);
+                }
+            }
+            IO.println();
+            IO.println("Audio Books: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof AudioBook audioBook) {
+                    IO.println(audioBook);
+                }
+            }
+            IO.println();
+            IO.println("Games: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof Game game) {
+                    IO.println(game);
+                }
+            }
+            IO.println();
+            IO.println("Movies: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof Movie movie) {
+                    IO.println(movie);
+                }
             }
             printSeperator();
             IO.println();
