@@ -66,33 +66,7 @@ public class ConsoleUI {
             IO.println("\n" + member);
             printSeperator();
             List<Resource> availableResources = library.getAvailableResources();
-            IO.println("Books: ");
-            for (Resource resource : availableResources) {
-                if (resource instanceof Book book) {
-                    IO.println(book);
-                }
-            }
-            IO.println();
-            IO.println("Audio Books: ");
-            for (Resource resource : availableResources) {
-                if (resource instanceof AudioBook audioBook) {
-                    IO.println(audioBook);
-                }
-            }
-            IO.println();
-            IO.println("Games: ");
-            for (Resource resource : availableResources) {
-                if (resource instanceof Game game) {
-                    IO.println(game);
-                }
-            }
-            IO.println();
-            IO.println("Movies: ");
-            for (Resource resource : availableResources) {
-                if (resource instanceof Movie movie) {
-                    IO.println(movie);
-                }
-            }
+            separetedResources(availableResources);
             printSeperator();
             IO.println();
 
@@ -132,7 +106,7 @@ public class ConsoleUI {
         printSeperator();
 
         List<Loan> memberLoans = library.loansByMember(memberId);
-          memberLoans.sort(new LoanBorrowDateComparator()); // Sorts by borrowDate instead of DueDate
+        memberLoans.sort(new LoanBorrowDateComparator()); // Sorts by borrowDate instead of DueDate
         if (memberLoans.isEmpty()) {
             IO.println(YEL + "User has no active loans" + WHI);
         }
@@ -146,36 +120,10 @@ public class ConsoleUI {
     // Case 4
     private void showResources() {
         List<Resource> resources = new ArrayList<>(library.getResources());
-          resources.sort(new ResourceTitleComparator()); // Sorts by Title instead of ID
+        resources.sort(new ResourceTitleComparator()); // Sorts by Title instead of ID
         IO.println("Library");
         printSeperator();
-        IO.println("Books: ");
-        for (Resource resource : resources) {
-            if (resource instanceof Book book) {
-                IO.println(book);
-            }
-        }
-        IO.println();
-        IO.println("Audio Books: ");
-        for (Resource resource : resources) {
-            if (resource instanceof AudioBook audioBook) {
-                IO.println(audioBook);
-            }
-        }
-        IO.println();
-        IO.println("Games: ");
-        for (Resource resource : resources) {
-            if (resource instanceof Game game) {
-                IO.println(game);
-            }
-        }
-        IO.println();
-        IO.println("Movies: ");
-        for (Resource resource : resources) {
-            if (resource instanceof Movie movie) {
-                IO.println(movie);
-            }
-        }
+        separetedResources(resources);
         printSeperator();
     }
 
@@ -223,10 +171,10 @@ public class ConsoleUI {
     }
 
     private void addBook() {
-        String title  = IO.readln("Input title: ");
+        String title = IO.readln("Input title: ");
         String author = IO.readln("Input author: ");
         int pageCount = Integer.parseInt(IO.readln("Input pagecount: "));
-        String ISBN   = IO.readln("Input ISBN: ");
+        String ISBN = IO.readln("Input ISBN: ");
         if (checkResourceId(ISBN)) {
             return;
         }
@@ -235,10 +183,10 @@ public class ConsoleUI {
     }
 
     private void addAudioBook() {
-        String title   = IO.readln("Input title: ");
-        String author  = IO.readln("Input author: ");
+        String title = IO.readln("Input title: ");
+        String author = IO.readln("Input author: ");
         String runtime = IO.readln("Input runtime: ");
-        String ISBN    = IO.readln("Input ISBN: ");
+        String ISBN = IO.readln("Input ISBN: ");
         if (checkResourceId(ISBN)) {
             return;
         }
@@ -247,10 +195,10 @@ public class ConsoleUI {
     }
 
     private void addGame() {
-        String title    = IO.readln("Input title: ");
+        String title = IO.readln("Input title: ");
         String platform = IO.readln("Input platform: ");
-        String studio   = IO.readln("Input studio: ");
-        String EAN      = IO.readln("Input EAN: ");
+        String studio = IO.readln("Input studio: ");
+        String EAN = IO.readln("Input EAN: ");
         if (checkResourceId(EAN)) {
             return;
         }
@@ -259,11 +207,11 @@ public class ConsoleUI {
     }
 
     private void addMovie() {
-        String title    = IO.readln("Input title: ");
+        String title = IO.readln("Input title: ");
         String director = IO.readln("Input director: ");
-        String studio   = IO.readln("Input studio: ");
-        String runtime  = IO.readln("Input runtime: ");
-        String EAN      = IO.readln("Input EAN: ");
+        String studio = IO.readln("Input studio: ");
+        String runtime = IO.readln("Input runtime: ");
+        String EAN = IO.readln("Input EAN: ");
         if (checkResourceId(EAN)) {
             return;
         }
@@ -286,6 +234,36 @@ public class ConsoleUI {
 
 
     // Aesthetic
+    public void separetedResources(List<Resource> resources) {
+        IO.println("Books: ");
+        for (Resource resource : resources) {
+            if (resource instanceof Book book) {
+                IO.println(book);
+            }
+        }
+        IO.println();
+        IO.println("Audio Books: ");
+        for (Resource resource : resources) {
+            if (resource instanceof AudioBook audioBook) {
+                IO.println(audioBook);
+            }
+        }
+        IO.println();
+        IO.println("Games: ");
+        for (Resource resource : resources) {
+            if (resource instanceof Game game) {
+                IO.println(game);
+            }
+        }
+        IO.println();
+        IO.println("Movies: ");
+        for (Resource resource : resources) {
+            if (resource instanceof Movie movie) {
+                IO.println(movie);
+            }
+        }
+    }
+
     private void printSeperator() {
         IO.println("------------------------------------------------------------------------------------");
     }
