@@ -12,24 +12,6 @@ public class ConsoleUI {
     String GRE = "\u001B[38;2;86;170;111m";
     String WHI = "\u001B[0m";
 
-    public void login() {
-        boolean running = true;
-        while (running) {
-            showLogin();
-            try {
-                int choice = Integer.parseInt(IO.readln("Input library choice: "));
-                IO.println();
-                switch (choice) {
-                    case 1 -> selectPath(1);
-                    case 2 -> selectPath(2);
-                    default -> IO.println(RED + "Invalid input. Try again" + WHI);
-                }
-            } catch (NumberFormatException e) {
-                IO.println(RED + "Invalid input. Must be a number \nTry again \n" + WHI);
-            }
-        }
-    }
-
     public void run() {
         boolean running = true;
         while (running) {
@@ -52,20 +34,6 @@ public class ConsoleUI {
                 IO.println(RED + "Invalid input. Must be a number \nTry again \n" + WHI);
             }
         }
-    }
-
-    public void showLogin() {
-        IO.println();
-        IO.println("| 1. Gentofte bibliotek");
-        IO.println("| 2. Svaneke bibliotek");
-        IO.println();
-    }
-
-    public String selectPath(int choice) {
-        if (choice == 1) {
-            return "gentofte-bibliotek";
-        }
-        return "svaneke-bibliotek";
     }
 
     private void showMenu() {
@@ -93,8 +61,32 @@ public class ConsoleUI {
             IO.println("\n" + member);
             printSeperator();
             List<Resource> availableResources = library.getAvailableResources();
-            for (Resource onShelf : availableResources) {
-                IO.println(onShelf);
+            IO.println("Books: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof Book book) {
+                    IO.println(book);
+                }
+            }
+            IO.println();
+            IO.println("Audio Books: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof AudioBook audioBook) {
+                    IO.println(audioBook);
+                }
+            }
+            IO.println();
+            IO.println("Games: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof Game game) {
+                    IO.println(game);
+                }
+            }
+            IO.println();
+            IO.println("Movies: ");
+            for (Resource resource : availableResources) {
+                if (resource instanceof Movie movie) {
+                    IO.println(movie);
+                }
             }
             printSeperator();
             IO.println();
