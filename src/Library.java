@@ -32,13 +32,20 @@ public class Library {
         } return true;
     }
 
-    public void addResource(Resource resource) { resources.add(resource); }  // <--- Superfluous
-    //public void addResources(Resource... newResources) { resources.addAll(Arrays.asList(newResources)); }
+    public void addResource(Resource resource) {
+        resources.add(resource);
+        resources.sort(null);
+    }
 
-    public void addMember(Member member) { members.add(member); }   // <--- Superfluous
-    //public void addMembers(Member... newMembers) { members.addAll(Arrays.asList(newMembers)); }
+    public void addMember(Member member) {
+        members.add(member);
+        members.sort(null);
+    }
 
-    public void addLoan(Loan loan) { loans.add(loan); }
+    public void addLoan(Loan loan) {
+        loans.add(loan);
+        loans.sort(null);
+    }
 
     // Getters
     public List<Resource> getResources() { return resources; }
@@ -113,18 +120,5 @@ public class Library {
             }
         }
         return false;
-    }
-
-    // Printers     // Should probably be in ConsoleUI
-    public void printResources() {
-        for (Resource resource : resources) {
-            IO.println(resource);
-        }
-    }
-
-    public void printMembers() {
-        for (Member member : members) {
-            IO.println(member);
-        }
     }
 }

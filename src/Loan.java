@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public record Loan(Resource resource, Member member, LocalDate borrowedDate, LocalDate dueDate) {
+public record Loan(Resource resource, Member member, LocalDate borrowedDate, LocalDate dueDate) implements Comparable<Loan> {
 
     @Override
     public String toString() {
@@ -21,6 +21,11 @@ public record Loan(Resource resource, Member member, LocalDate borrowedDate, Loc
 
     public LocalDate getDueDate() {
         return dueDate;
+    }
+
+    @Override
+    public int compareTo(Loan other) {
+        return this.dueDate.compareTo(other.dueDate);
     }
 }
 

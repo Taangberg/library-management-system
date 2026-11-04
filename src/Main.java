@@ -1,19 +1,28 @@
 void main(String[] args){
-    // spørg om det er svaneke eller gentofte, og lav derefter 2 file handlers som enten tager fra path svaneke eller path gentofte, hvor den efter følgende fylder listerne ud? og skal det i UI?
 
+    // Library choice step; selects library filepath and language preference
     String choice = login();
 
     FileHandler fileHandler = new FileHandler(Path.of("bibliotek/"+choice), new CSVMapper());
     LoanPolicy loanPolicy = switch (choice) {
-        case "svaneke-bibliotek" -> new BornholmLoanPolicy();
-        default -> new StandardLoanPolicy();
+        case "gentofte-bibliotek" -> new StandardLoanPolicy();
+        case "malmö-bibliotek"    -> new StandardLoanPolicy();
+        case "svaneke-bibliotek"  -> new BornholmLoanPolicy();
+        default                   -> new StandardLoanPolicy();
+    };
+    Locale locale = switch (choice) {
+        case "gentofte-bibliotek" -> Locale.forLanguageTag("da");
+        case "malmö-bibliotek"    -> Locale.forLanguageTag("sv");  // <- doesnt exist
+        case "svaneke-bibliotek"  -> Locale.forLanguageTag("da");
+        default                   -> Locale.forLanguageTag("da");
     };
 
+    // Library setup step; creates necessary content arrays for library
     List<Resource> resources = new ArrayList<>();
     List<Loan> loans = new ArrayList<>();
     List<Member> members = new ArrayList<>();
 
-    // load from CSV
+    // load from CSV; fills library with contents from chosen library's .csv files
     try {
         resources.addAll(fileHandler.loadAudioBooks());
         resources.addAll(fileHandler.loadBooks());
@@ -27,11 +36,23 @@ void main(String[] args){
         throw new RuntimeException(e);
     }
 
+    // sort array; sorts the array by:
+    resources.sort(null);   // title
+    members.sort(null);     // memberId
+    loans.sort(null);       // borrowDate
+    /* then the consoleUI sorts resources by type during prints, so we end up with
+       books      A -> Å
+       audiobooks A -> Å
+       movies     A -> Å
+       games      A -> Å
+     */
+
+    // Completion step; finally consolidates all the information and runs the program
     Library library = new Library(loanPolicy, resources, members, loans);
-    ConsoleUI UI = new ConsoleUI(library);
+    ConsoleUI UI = new ConsoleUI(library, locale);
     UI.run();
 
-    // save to CSV
+    // save to CSV; saves any backend additions to library (likely won't be used again)
   try {
         fileHandler.saveResources(resources);
         fileHandler.saveMembers(members);
@@ -49,7 +70,6 @@ String login() {
         showLogin();
         try {
             int choice = Integer.parseInt(IO.readln("Input library choice: "));
-            IO.println();
             switch (choice) {
                 case 1 -> { return "gentofte-bibliotek"; }
                 case 2 -> { return "svaneke-bibliotek"; }

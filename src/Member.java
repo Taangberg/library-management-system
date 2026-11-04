@@ -1,4 +1,6 @@
-public record Member(String name, int memberId) {
+import java.util.Comparator;
+
+public record Member(String name, int memberId) implements Comparable<Member> {
 
     @Override
     public String toString() {
@@ -11,5 +13,10 @@ public record Member(String name, int memberId) {
 
     public int getId() {
         return memberId;
+    }
+
+    @Override
+    public int compareTo(Member other) {
+        return Integer.compare(this.memberId, other.memberId);
     }
 }
