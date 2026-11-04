@@ -1,34 +1,21 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public class ConsoleUI {
     private final Library library;
+    private final Comparator<Resource> titleComparator;
 
-    public ConsoleUI(Library library) {
+    public ConsoleUI(Library library, Locale locale) {
         this.library = library;
+        this.titleComparator = new ResourceTitleCollatorComparator(locale);
     }
 
     String RED = "\u001B[31m";
     String YEL = "\u001B[93m";
     String GRE = "\u001B[38;2;86;170;111m";
     String WHI = "\u001B[0m";
-
-    public void login() {
-        boolean running = true;
-        while (running) {
-            showLogin();
-            try {
-                int choice = Integer.parseInt(IO.readln("Input library choice: "));
-                IO.println();
-                switch (choice) {
-                    case 1 -> selectPath(1);
-                    case 2 -> selectPath(2);
-                    default -> IO.println(RED + "Invalid input. Try again" + WHI);
-                }
-            } catch (NumberFormatException e) {
-                IO.println(RED + "Invalid input. Must be a number \nTry again \n" + WHI);
-            }
-        }
-    }
 
     public void run() {
         boolean running = true;
@@ -52,20 +39,6 @@ public class ConsoleUI {
                 IO.println(RED + "Invalid input. Must be a number \nTry again \n" + WHI);
             }
         }
-    }
-
-    public void showLogin() {
-        IO.println();
-        IO.println("| 1. Gentofte bibliotek");
-        IO.println("| 2. Svaneke bibliotek");
-        IO.println();
-    }
-
-    public String selectPath(int choice) {
-        if (choice == 1) {
-            return "gentofte-bibliotek";
-        }
-        return "svaneke-bibliotek";
     }
 
     private void showMenu() {
@@ -111,6 +84,7 @@ public class ConsoleUI {
         }
     }
 
+
     // Case 2
     private void returnBook() {
         String resourceID = IO.readln("Input item id: ");
@@ -134,6 +108,7 @@ public class ConsoleUI {
         printSeperator();
 
         List<Loan> memberLoans = library.loansByMember(memberId);
+          memberLoans.sort(new LoanBorrowDateComparator()); // Sorts by borrowDate instead of DueDate
         if (memberLoans.isEmpty()) {
             IO.println(YEL + "User has no active loans" + WHI);
         }
@@ -146,7 +121,8 @@ public class ConsoleUI {
 
     // Case 4
     private void showResources() {
-        List<Resource> resources = library.getResources();
+        List<Resource> resources = new ArrayList<>(library.getResources());
+          resources.sort(new ResourceTitleComparator()); // Sorts by Title instead of ID
         IO.println("Library");
         printSeperator();
         IO.println("Books: ");
@@ -182,8 +158,11 @@ public class ConsoleUI {
 
     // Case 5
     private void showMembers() {
-        library.printMembers();
+        for (Member member : library.getMembers()) {
+            IO.println(member);
+        }
     }
+
 
     // Case 6
     private void addMember() {
@@ -194,11 +173,11 @@ public class ConsoleUI {
             return;
         }
         library.addMember(new Member(name, id));
-        successfullyAdded(name);
+        printSuccessfullyAdded(name);
     }
 
 
-    // Case 7
+    //region // Case 7
     private void addResource() {
         showAddResource();
         int choice = Integer.parseInt(IO.readln("Input menu choice: "));
@@ -220,52 +199,52 @@ public class ConsoleUI {
     }
 
     private void addBook() {
-        String title = IO.readln("Input title: ");
+        String title  = IO.readln("Input title: ");
         String author = IO.readln("Input author: ");
         int pageCount = Integer.parseInt(IO.readln("Input pagecount: "));
-        String ISBN = IO.readln("Input ISBN: ");
+        String ISBN   = IO.readln("Input ISBN: ");
         if (checkResourceId(ISBN)) {
             return;
         }
         library.addResource(new Book(title, author, pageCount, ISBN));
-        successfullyAdded(title);
+        printSuccessfullyAdded(title);
     }
 
     private void addAudioBook() {
-        String title = IO.readln("Input title: ");
-        String author = IO.readln("Input author: ");
+        String title   = IO.readln("Input title: ");
+        String author  = IO.readln("Input author: ");
         String runtime = IO.readln("Input runtime: ");
-        String ISBN = IO.readln("Input ISBN: ");
+        String ISBN    = IO.readln("Input ISBN: ");
         if (checkResourceId(ISBN)) {
             return;
         }
         library.addResource(new AudioBook(title, author, runtime, ISBN));
-        successfullyAdded(title);
+        printSuccessfullyAdded(title);
     }
 
     private void addGame() {
-        String title = IO.readln("Input title: ");
+        String title    = IO.readln("Input title: ");
         String platform = IO.readln("Input platform: ");
-        String studio = IO.readln("Input studio: ");
-        String EAN = IO.readln("Input EAN: ");
+        String studio   = IO.readln("Input studio: ");
+        String EAN      = IO.readln("Input EAN: ");
         if (checkResourceId(EAN)) {
             return;
         }
         library.addResource(new Game(title, platform, studio, EAN));
-        successfullyAdded(title);
+        printSuccessfullyAdded(title);
     }
 
     private void addMovie() {
-        String title = IO.readln("Input title: ");
+        String title    = IO.readln("Input title: ");
         String director = IO.readln("Input director: ");
-        String studio = IO.readln("Input studio: ");
-        String runtime = IO.readln("Input runtime: ");
-        String EAN = IO.readln("Input EAN: ");
+        String studio   = IO.readln("Input studio: ");
+        String runtime  = IO.readln("Input runtime: ");
+        String EAN      = IO.readln("Input EAN: ");
         if (checkResourceId(EAN)) {
             return;
         }
         library.addResource(new Movie(title, director, studio, runtime, EAN));
-        successfullyAdded(title);
+        printSuccessfullyAdded(title);
     }
 
     private boolean checkResourceId(String ID) {
@@ -276,10 +255,13 @@ public class ConsoleUI {
         return false;
     }
 
-    private void successfullyAdded(String title) {
+    private void printSuccessfullyAdded(String title) {
         IO.println(title + " successfully added");
     }
+//endregion
 
+
+    // Aesthetic
     private void printSeperator() {
         IO.println("------------------------------------------------------------------------------------");
     }
